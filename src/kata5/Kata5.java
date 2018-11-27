@@ -5,10 +5,26 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.Connection;
 
+
  public class Kata5 {
  	public static void main(String[] args) {
-		selectAll();
+
+	createTable();    
 	}
+
+ 	private static void createTable() {
+ 		String url = "jdbc:sqlite:EmailsDB.db";
+ 		String sql = "CREATE TABLE IF NOT EXISTS EMAIL (\n"
+				+ " ID integer PRIMARY KEY AUTOINCREMENT,\n"
+				+ " Mail text NOT NULL);";
+ 		try (Connection conn = DriverManager.getConnection(url);
+				Statement stmt = conn.createStatement()) {
+ 			stmt.execute(sql);
+ 			System.out.println("Tabla creada");
+ 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}        
  	private static Connection connect() {
  		final String url = "jdbc:sqlite:KATA5.db";
 		
